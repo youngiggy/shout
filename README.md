@@ -1,4 +1,5 @@
 shout
 =====
 
-shout mobile web page (node ver.)
+shout web app. (node ver.)
+for mobile
