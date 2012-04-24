@@ -1,0 +1,17 @@
+body {
+  padding: 10px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/*
+plan9 test
+*/
+.hide {display:none; margin-top: 0px;}
+#map {margin:20px 0px 20px 0px;}
+#usernick {color:orange}
+#layerChat {position:absolute;margin:10px 0px 20px 10px;background-color:white;width:180px;height:180px;}
+#btns input {position:absolute;margin:10px 0px 0px 140px;z-index:100;}

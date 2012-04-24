@@ -1,0 +1,13 @@
+  $(document).ready({
+    alert('?');
+    $('#btnListen').click(function(){
+      alert('1');
+      $('.listenToggle').toggle();
+    });
+    $('#btnClose').click(function(){
+      alert('2');
+      $('#layerChat').html('');
+      $('.listenToggle').toggle();
+    });
+  });
+  alertkk(4432);

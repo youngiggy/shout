@@ -1,0 +1,41 @@
+h2 shout > { )
+
+h3 로그인 합시다
+
+section
+  form(action='/loginPost', method='POST')
+    label(for='id') 
+    p ID 있죠?
+    input(type='text', id='id', name='id')
+    p password?
+    input(type='password', id='pw', name='pw')
+    input(type='submit', value='입장')
+
+h3 ID가 없으면?
+
+section
+  p
+    a(href='/join') 회원가입
+  p
+    a(href='/fbLogin',onclick='alert("haha not yet!");return false;') facebook으로 로그인
+  p
+    a(href='/ggLogin',onclick='alert("haha not yet!");return false;') google 계정으로 로그
+
+script(type='text/javascript')
+  //$(document).ready(function() {
+    $('form').submit(function(e) {
+      var jQid = $('#id');
+      if ($.trim(jQid.val()) === '') {
+        alert('ID를 입력해 주세요.');
+        jQid.focus();
+        return false;
+      }
+      
+      var jQpw = $('#pw');
+      if ($.trim(jQpw.val()) === '') {
+        alert('비번을 입력해 주세요.');
+        jQpw.focus();
+        return false;
+      }
+    });
+  //});

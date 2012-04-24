@@ -1,0 +1,50 @@
+h2 shout > { )
+
+//section
+//  article
+//    select(name='mode')
+//      option(value='realtime') realtime
+//      option(value='log') shouting log
+
+section
+  div(id='btns')
+    input(type='button',id='btnListen',value='Listen',class='listenToggle')
+    input(type='button',id='btnClose',value='Close',class='listenToggle hide')
+  article(id='layerChat',class='listenToggle hide')
+    ul
+      li hello haha
+      li hoho yes
+      li yeyeye
+  article(id='map')
+    img(src='/testmap.jpg',width='200px',height='200px')
+
+section
+  article(id='my',class='listenToggle')
+    span I'm 
+    span(id='usernick') #{user.nick}
+  article(class='listenToggle hide')
+    input(type='text', name='shout')
+    input(type='button', value='shout')
+
+script
+  $(document).ready(function(){
+    $('#btnListen').click(function(){
+      $('.listenToggle').toggle();
+      $.ajax({
+        url : "/listen"
+        ,dataType : "json"
+        , success: function(data) {
+          if (data) {
+            alert(data.isSuccess);
+          }
+        }
+      });
+    });
+    $('#btnClose').click(function(){
+      //$('#layerChat').html('');
+      $('.listenToggle').toggle();
+    });
+  });
+
+//script(type='text/javascript', src='/shout.js')
+
