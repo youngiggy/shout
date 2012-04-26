@@ -37,6 +37,9 @@ app.get('/', function(req, res){
     res.render('login',{'returl':'/index'});
   } else {
     var usernick = req.session.usernick;
+    if (!Chat.hasUser(usernick)) {
+      Chat.addUser(usernick);
+    }
     res.render('index',{user:{nick:usernick}});
   }
 });
@@ -68,7 +71,7 @@ app.get('/listen', function(req, res) {
     , roomName = 'global';
 
   if (!Chat.hasRoom(roomName)) {
-    Chat.addRoom(roomName);
+    Chat.addRoom(roomName);//필요한가?
   }
     
   isSuccess = true;

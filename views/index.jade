@@ -11,7 +11,7 @@ section
     input(type='button',id='btnListen',value='Listen',class='listenToggle')
     input(type='button',id='btnClose',value='Close',class='listenToggle hide')
   article(id='layerChat',class='listenToggle hide')
-    ul
+    ul(id='layerChatUl')
       li hello haha
       li hoho yes
       li yeyeye
@@ -27,8 +27,18 @@ section
     input(type='button', value='shout')
 
 script
+  var usernick = '#{user.nick}';
+  var roomname = 'global';
+  var showMessage = function(msg) {
+    var chatWindow = $('#layerChatUl');
+    chatWindow.append($('<li>').text(msg));     
+    chatWindow.scrollTop(chatWindow.height());
+  };
+  
   $(document).ready(function(){
+    var room = io.connect('/room'); 
     $('#btnListen').click(function(){
+    alert(22);
       $('.listenToggle').toggle();
       $.ajax({
         url : "/listen"
@@ -43,7 +53,28 @@ script
     $('#btnClose').click(function(){
       //$('#layerChat').html('');
       $('.listenToggle').toggle();
+      room.emit('leave', {nickName:usernick});
     });
+    
+    
+      room.on('connect', function() {
+        room.emit('join', {roomName:roomname, nickName:usernick}); 
+      });
+
+      room.on('joined', function(data) {
+        if(data.isSuccess) {
+          showMessage(data.nickName + '님이 입장하셨습니다.');
+        }
+      });
+
+      room.on('message', function(data) {
+        showMessage(data.nickName + ' : ' + data.msg); 
+      });
+
+      room.on('leaved', function(data) {
+        showMessage(data.nickName + '님이 나가셨습니다.');
+      });
+    
   });
 
 //script(type='text/javascript', src='/shout.js')
