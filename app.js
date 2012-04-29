@@ -73,7 +73,7 @@ app.get('/listen', function(req, res) {
   if (!Chat.hasRoom(roomName)) {
     Chat.addRoom(roomName);//필요한가?
   }
-    
+  
   isSuccess = true;
   
   res.local('layout', false) ;

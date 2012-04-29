@@ -23,22 +23,35 @@ section
     span I'm 
     span(id='usernick') #{user.nick}
   article(class='listenToggle hide')
-    input(type='text', name='shout')
-    input(type='button', value='shout')
+    form
+      input(type='text', name='message')
+      input(type='submit', value='shout')
 
 script
-  var usernick = '#{user.nick}';
+  var usernick = myName = '#{user.nick}';
   var roomname = 'global';
   var showMessage = function(msg) {
     var chatWindow = $('#layerChatUl');
     chatWindow.append($('<li>').text(msg));     
     chatWindow.scrollTop(chatWindow.height());
   };
-  
+
+  var messageBox = $('#message');
+      
+  $('form').submit(function(e) {
+    e.preventDefault();
+    var msg = messageBox.val();
+    if ($.trim(msg) !== '') {
+      showMessage(myName + ' : ' + msg);
+      room.json.send({nickName:myName, msg:msg});
+      messageBox.val('');
+    }
+  });
+
   $(document).ready(function(){
     var room = io.connect('/room'); 
-    $('#btnListen').click(function(){
-    alert(22);
+    
+    $('#btnListen').click(function() {
       $('.listenToggle').toggle();
       $.ajax({
         url : "/listen"
@@ -57,23 +70,23 @@ script
     });
     
     
-      room.on('connect', function() {
-        room.emit('join', {roomName:roomname, nickName:usernick}); 
-      });
+    room.on('connect', function() {
+      room.emit('join', {roomName:roomname, nickName:usernick}); 
+    });
 
-      room.on('joined', function(data) {
-        if(data.isSuccess) {
-          showMessage(data.nickName + '님이 입장하셨습니다.');
-        }
-      });
+    room.on('joined', function(data) {
+      if(data.isSuccess) {
+        showMessage(data.nickName + '님이 입장하셨습니다.');
+      }
+    });
 
-      room.on('message', function(data) {
-        showMessage(data.nickName + ' : ' + data.msg); 
-      });
+    room.on('message', function(data) {
+      showMessage(data.nickName + ' : ' + data.msg); 
+    });
 
-      room.on('leaved', function(data) {
-        showMessage(data.nickName + '님이 나가셨습니다.');
-      });
+    room.on('leaved', function(data) {
+      showMessage(data.nickName + '님이 나가셨습니다.');
+    });
     
   });
 

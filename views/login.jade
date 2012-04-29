@@ -23,6 +23,8 @@ section
 
 script(type='text/javascript')
   //$(document).ready(function() {
+    $('#id').focus();
+  
     $('form').submit(function(e) {
       var jQid = $('#id');
       if ($.trim(jQid.val()) === '') {
