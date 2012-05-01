@@ -24,14 +24,14 @@ section
     span(id='usernick') #{user.nick}
   article(class='listenToggle hide')
     form
-      input(type='text', name='message')
+      input(type='text', id='message', name='message')
       input(type='submit', value='shout')
 
 script
   var usernick = myName = '#{user.nick}';
   var roomname = 'global';
+  var chatWindow = $('#layerChatUl');
   var showMessage = function(msg) {
-    var chatWindow = $('#layerChatUl');
     chatWindow.append($('<li>').text(msg));     
     chatWindow.scrollTop(chatWindow.height());
   };
@@ -43,8 +43,8 @@ script
     var msg = messageBox.val();
     if ($.trim(msg) !== '') {
       showMessage(myName + ' : ' + msg);
-      room.json.send({nickName:myName, msg:msg});
-      messageBox.val('');
+      //room.json.send({nickName:myName, msg:msg});
+      messageBox.val('').focus();
     }
   });
 
@@ -58,7 +58,7 @@ script
         ,dataType : "json"
         , success: function(data) {
           if (data) {
-            alert(data.isSuccess);
+            chatWindow.html('');
           }
         }
       });

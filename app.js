@@ -71,7 +71,7 @@ app.get('/listen', function(req, res) {
     , roomName = 'global';
 
   if (!Chat.hasRoom(roomName)) {
-    Chat.addRoom(roomName);//필요한가?
+    Chat.addRoom(roomName);
   }
   
   isSuccess = true;

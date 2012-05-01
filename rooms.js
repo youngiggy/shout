@@ -21,6 +21,8 @@ module.exports = function(app) {
       socket.on('join', function(data) {
 		//예외처리 : 현재 방 개념이 없음
 		data.roomName = 'global';
+  console.log('roomList='+Chat.getRoomList());
+  console.log(Chat.hasRoom(data.roomName));
         if (Chat.hasRoom(data.roomName)) {
           joinedRoom = data.roomName;
           socket.join(joinedRoom);
@@ -39,6 +41,7 @@ module.exports = function(app) {
       });
 
       socket.on('message', function(data) {
+		  console.log(joinedRoom);
         if (joinedRoom) {
           socket.broadcast.to(joinedRoom).json.send(data);
         } 
