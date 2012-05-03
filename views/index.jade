@@ -37,19 +37,21 @@ script
   };
 
   var messageBox = $('#message');
+  var room = null;
       
   $('form').submit(function(e) {
     e.preventDefault();
     var msg = messageBox.val();
     if ($.trim(msg) !== '') {
       showMessage(myName + ' : ' + msg);
-      //room.json.send({nickName:myName, msg:msg});
+      console.log({nickName:myName, msg:msg});
+      room.json.send({nickName:myName, msg:msg});
       messageBox.val('').focus();
     }
   });
 
   $(document).ready(function(){
-    var room = io.connect('/room'); 
+    room = io.connect('/room'); 
     
     $('#btnListen').click(function() {
       $('.listenToggle').toggle();

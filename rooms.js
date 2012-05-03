@@ -41,7 +41,7 @@ module.exports = function(app) {
       });
 
       socket.on('message', function(data) {
-		  console.log(joinedRoom);
+		  console.log('on message:joinedRoom='+joinedRoom);
         if (joinedRoom) {
           socket.broadcast.to(joinedRoom).json.send(data);
         } 
