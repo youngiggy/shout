@@ -10,13 +10,13 @@ section
   div(id='btns')
     input(type='button',id='btnListen',value='Listen',class='listenToggle')
     input(type='button',id='btnClose',value='Close',class='listenToggle hide')
-  article(id='layerChat',class='listenToggle hide')
+  article(id='map')
+    img(src='/testmap.jpg',width='200px',height='200px')
+  article(id='layerChat',class='listenToggle hide',style='border:solid red 1px;margin-top:-210px;z-index:1;')
     ul(id='layerChatUl')
       li hello haha
       li hoho yes
       li yeyeye
-  article(id='map')
-    //img(src='/testmap.jpg',width='200px',height='200px')
 
 section
   article(id='my',class='listenToggle')
