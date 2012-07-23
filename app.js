@@ -34,6 +34,7 @@ app.configure('production', function(){
 
 app.get('/', function(req, res){
   if ( !req.session.usernick) {
+    //
     res.render('login',{'returl':'/index'});
   } else {
     var usernick = req.session.usernick;
